@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Symptom Analyzer</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Add TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.17.0/dist/tf.min.js"></script>
+    <!-- Add error handling for TensorFlow.js -->
+    <script>
+        window.addEventListener('error', function(e) {
+            if (e.message.includes('TensorFlow')) {
+                console.error('TensorFlow.js error:', e);
+                alert('Error loading TensorFlow.js. The application will use rule-based analysis instead.');
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-heartbeat"></i> AI- Powered Health Diagnostics</h1>
+            <p>Get AI-powered health insights and personalized recommendations</p>
+        </header>
+
+        <main>
+            <div class="symptom-form">
+                <div class="form-section">
+                    <h2><i class="fas fa-comment-medical"></i> Describe Your Symptoms</h2>
+                    <div class="symptom-input">
+                        <label for="symptoms">How are you feeling? Describe your symptoms in detail:</label>
+                        <textarea id="symptoms" placeholder="e.g., I've been feeling tired and have a headache for the past few days..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2><i class="fas fa-clock"></i> Duration</h2>
+                    <div class="duration-input">
+                        <label for="duration">How long have you been experiencing these symptoms?</label>
+                        <select id="duration">
+                            <option value="">Select duration</option>
+                            <option value="less_than_day">Less than a day</option>
+                            <option value="1_3_days">1-3 days</option>
+                            <option value="4_7_days">4-7 days</option>
+                            <option value="1_2_weeks">1-2 weeks</option>
+                            <option value="more_than_2_weeks">More than 2 weeks</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2><i class="fas fa-user-circle"></i> Lifestyle & Habits</h2>
+                    <div class="habits-grid">
+                        <div class="habit-item">
+                            <input type="checkbox" id="smoking" name="habits">
+                            <label for="smoking"><i class="fas fa-smoking"></i> Smoking</label>
+                        </div>
+                        <div class="habit-item">
+                            <input type="checkbox" id="alcohol" name="habits">
+                            <label for="alcohol"><i class="fas fa-wine-glass-alt"></i> Regular Alcohol Consumption</label>
+                        </div>
+                        <div class="habit-item">
+                            <input type="checkbox" id="exercise" name="habits">
+                            <label for="exercise"><i class="fas fa-running"></i> Regular Exercise</label>
+                        </div>
+                        <div class="habit-item">
+                            <input type="checkbox" id="stress" name="habits">
+                            <label for="stress"><i class="fas fa-brain"></i> High Stress Levels</label>
+                        </div>
+                        <div class="habit-item">
+                            <input type="checkbox" id="sleep" name="habits">
+                            <label for="sleep"><i class="fas fa-moon"></i> Poor Sleep Quality</label>
+                        </div>
+                        <div class="habit-item">
+                            <input type="checkbox" id="diet" name="habits">
+                            <label for="diet"><i class="fas fa-utensils"></i> Unhealthy Diet</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="analyze-btn" class="analyze-button">
+                    <i class="fas fa-search"></i> Analyze Symptoms
+                </button>
+            </div>
+
+            <div class="results" id="results">
+                <h2>Analysis Results</h2>
+                <div class="loading" id="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Analyzing your symptoms...</p>
+                </div>
+                <div class="results-content" id="results-content" style="display: none;">
+                    <div class="results-grid">
+                        <div class="possible-conditions">
+                            <h3><i class="fas fa-clipboard-list"></i> Possible Conditions</h3>
+                            <ul id="conditions-list"></ul>
+                        </div>
+                        <div class="recommendations">
+                            <h3><i class="fas fa-lightbulb"></i> Recommendations</h3>
+                            <ul id="recommendations-list"></ul>
+                        </div>
+                    </div>
+                    <div class="severity-indicator">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Severity Level</h3>
+                        <div class="severity-meter">
+                            <div class="severity-bar" id="severity-bar"></div>
+                        </div>
+                        <p id="severity-text"></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p><i class="fas fa-info-circle"></i> Disclaimer: This tool is for informational purposes only and consult a qualified doctor. </p>
+        </footer>
+    </div>
+    <!-- Load main.js as a module -->
+    <script type="module" src="static/js/main.js"></script>
+</body>
+</html> 
